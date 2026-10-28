@@ -561,7 +561,7 @@ body.cursed-mode .container::before {
         </form>
 
         {% if message %}
-            <div class="result" role="status" aria-live="polite">
+            <div class="result {% if bench_kg is defined and bench_kg|float >= 100 %}century-club{% endif %}" role="status" aria-live="polite">
                 {{ message }}
             </div>
         {% endif %}
@@ -594,6 +594,51 @@ body.cursed-mode .container::before {
             document.body.classList.add("cursed-mode");
         }
     });
+})();
+</script>
+
+<script>
+(function () {
+    const result = document.querySelector(".result.century-club");
+
+    if (!result) return;
+
+    const colors = [
+        "#ffe45c",
+        "#ff3030",
+        "#ffffff",
+        "#ffad33",
+        "#8b00ff"
+    ];
+
+    // THE 100 KG CELEBRATION 🔥
+    for (let i = 0; i < 90; i++) {
+        const particle = document.createElement("span");
+
+        particle.className = "century-particle";
+        particle.style.setProperty(
+            "--start-x",
+            Math.random() * 100 + "vw"
+        );
+        particle.style.setProperty(
+            "--drift",
+            (Math.random() * 200 - 100) + "px"
+        );
+        particle.style.setProperty(
+            "--fall-duration",
+            (2 + Math.random() * 3) + "s"
+        );
+        particle.style.setProperty(
+            "--particle-color",
+            colors[Math.floor(Math.random() * colors.length)]
+        );
+
+        document.body.appendChild(particle);
+
+        particle.addEventListener("animationend", function () {
+            particle.remove();
+        }, { once: true });
+    }
 })();
 </script>
 
