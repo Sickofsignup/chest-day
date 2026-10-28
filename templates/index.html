@@ -390,7 +390,7 @@ body.cursed-mode .container::before {
 }
 
 .result.century-club::before {
-    content: "🏆 100 KG CLUB UNLOCKED 🏆";
+    content: "🏆 " attr(data-weight) " KG CLUB UNLOCKED 🏆";
     color: #ffe45c;
     font-size: 12px;
     animation: century-title 0.6s ease-out both;
@@ -561,7 +561,14 @@ body.cursed-mode .container::before {
         </form>
 
         {% if message %}
-            <div class="result {% if bench_kg is defined and bench_kg|float >= 100 %}century-club{% endif %}" role="status" aria-live="polite">
+            <div
+    class="result {% if bench_kg is not none and bench_kg|float >= 100 %}century-club{% endif %}"
+    {% if bench_kg is not none and bench_kg|float >= 100 %}
+        data-weight="{{ bench_kg|int if bench_kg|float == bench_kg|int else bench_kg }}"
+    {% endif %}
+    role="status"
+    aria-live="polite"
+>
                 {{ message }}
             </div>
         {% endif %}
