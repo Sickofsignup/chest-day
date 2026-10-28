@@ -74,6 +74,8 @@ def get_message(answer, pr=None):
 @app.route("/", methods=["GET", "POST"])
 def home():
     message = None
+    weight = None
+    answer = ""
 
     if request.method == "POST":
         answer = request.form.get("answer", "").lower().strip()
@@ -94,7 +96,7 @@ def home():
         else:
             message = get_message(answer)
 
-    bench_kg = weight if request.method == "POST" and answer == "yes" and "weight" in locals() else None
+       bench_kg = weight if answer == "yes" else None
     return render_template("index.html", message=message, bench_kg=bench_kg)
 
 
