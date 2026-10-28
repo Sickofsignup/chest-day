@@ -330,6 +330,52 @@
                 font-size: 48px;
             }
         }
+        
+/* SECRET GYM COURT CURSED MODE */
+#gym-title {
+    cursor: pointer;
+    user-select: none;
+}
+
+.cursed-message {
+    margin: 18px 0;
+    padding: 18px 14px;
+    border: 1px solid #ff3030;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #300909, #171017);
+    box-shadow: 0 0 25px rgba(255, 48, 48, 0.2);
+    color: #f8f8f8;
+    font-size: 13px;
+    line-height: 1.7;
+    animation: result-pop 0.35s ease-out;
+}
+
+.cursed-message[hidden] {
+    display: none !important;
+}
+
+.cursed-heading {
+    color: #ff3030;
+    font-weight: 1000;
+    letter-spacing: 1px;
+}
+
+.cursed-final {
+    color: #ffe45c;
+    font-weight: 900;
+}
+
+body.cursed-mode .container {
+    border-color: #ff3030;
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.65),
+        0 0 40px rgba(255, 48, 48, 0.22);
+}
+
+body.cursed-mode .container::before {
+    background: linear-gradient(90deg, #ff3030, #8b00ff, #ffe45c, #ff3030);
+}
+
     </style>
 </head>
 
@@ -337,10 +383,19 @@
     <main class="container">
         <div class="badge">⚠️ No skipping allowed</div>
 
-        <h1>
-            CHEST DAY?
-            <span>OR FRAUD? 💀</span>
-        </h1>
+        
+<h1 id="gym-title" title="...">
+    CHEST DAY?
+    <span>OR FRAUD? 💀</span>
+</h1>
+
+<div id="cursed-message" class="cursed-message" role="status" aria-live="polite" hidden>
+    <div class="cursed-heading">⚠️ THE GYM GODS HAVE AWAKENED ⚠️</div>
+    <p>YOU HAVE SUMMONED THE FORBIDDEN VERDICT. 💀</p>
+    <p>Your chest-day excuses have reached the heavens.</p>
+    <p class="cursed-final">THE GYM GODS JUDGE YOU: GUILTY. NO GAINS FOR THE GUILTY. 🗿</p>
+</div>
+
 
         <div class="emoji" aria-hidden="true">🏋️‍♂️</div>
 
@@ -434,5 +489,30 @@
             Leg day allegations are handled separately.
         </p>
     </main>
+    
+<script>
+(function () {
+    const title = document.getElementById("gym-title");
+    const message = document.getElementById("cursed-message");
+
+    if (!title || !message) return;
+
+    let clicks = 0;
+    let activated = false;
+
+    title.addEventListener("click", function () {
+        if (activated) return;
+
+        clicks++;
+
+        if (clicks >= 5) {
+            activated = true;
+            message.hidden = false;
+            document.body.classList.add("cursed-mode");
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
