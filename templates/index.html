@@ -4,9 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Chest Day?</title>
+    <meta name="theme-color" content="#101010">
+
+    <title>CHEST DAY? 💀 | Gym Court</title>
+
     <style>
-        * { box-sizing: border-box; }
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg: #101010;
+            --panel: #191919;
+            --red: #ff3030;
+            --yellow: #ffe45c;
+            --white: #f8f8f8;
+            --muted: #a5a5a5;
+            --border: #363636;
+        }
 
         body {
             margin: 0;
@@ -14,93 +29,389 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
-            background: #111318;
-            color: white;
-            font-family: Arial, sans-serif;
+            padding: 28px 16px;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(
+                    ellipse at 50% 0%,
+                    rgba(255, 48, 48, 0.17),
+                    transparent 60%
+                ),
+                repeating-linear-gradient(
+                    135deg,
+                    transparent,
+                    transparent 34px,
+                    rgba(255, 255, 255, 0.015) 35px,
+                    transparent 36px
+                );
+            color: var(--white);
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        button,
+        input {
+            font: inherit;
         }
 
         .container {
+            position: relative;
             width: 100%;
-            max-width: 420px;
-            padding: 28px 22px;
-            background: #1b1d24;
-            border: 1px solid #30323c;
-            border-radius: 24px;
+            max-width: 460px;
+            padding: 32px 25px 25px;
+            overflow: hidden;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 22px;
             text-align: center;
+            box-shadow:
+                0 25px 80px rgba(0, 0, 0, 0.55),
+                0 0 35px rgba(255, 48, 48, 0.06);
+        }
+
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(
+                90deg,
+                var(--red),
+                var(--yellow),
+                var(--red)
+            );
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 12px;
+            margin-bottom: 17px;
+            border: 1px solid #633030;
+            border-radius: 6px;
+            background: #2a1717;
+            color: #ff7777;
+            font-size: 11px;
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            transform: rotate(-2deg);
         }
 
         h1 {
-            color: #fb4b4b;
-            font-size: 30px;
+            margin: 0;
+            color: var(--white);
+            font-size: clamp(34px, 9vw, 47px);
+            font-weight: 1000;
+            line-height: 0.98;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+        }
+
+        h1 span {
+            display: block;
+            margin-top: 7px;
+            color: var(--red);
+            text-shadow: 3px 3px 0 #641414;
+        }
+
+        .emoji {
+            display: block;
+            margin: 23px 0 12px;
+            font-size: 58px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            margin: 0;
+            color: var(--white);
+            font-size: 19px;
+            font-weight: 800;
+        }
+
+        .description {
+            margin: 9px 0 23px;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .description strong {
+            color: var(--yellow);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 20px 0;
+            color: #777;
+            font-size: 10px;
+            font-weight: 900;
             letter-spacing: 2px;
         }
 
-        p { color: #b9bbc5; line-height: 1.5; }
+        .divider::before,
+        .divider::after {
+            content: "";
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
 
-        input, button {
+        .input-label {
             display: block;
-            width: 100%;
-            padding: 16px;
-            margin-top: 14px;
-            border-radius: 12px;
-            font-size: 17px;
+            margin-bottom: 9px;
+            color: #dedede;
+            font-size: 12px;
+            font-weight: 900;
+            letter-spacing: 1px;
+            text-align: left;
+            text-transform: uppercase;
         }
 
         input {
-            background: #111318;
-            border: 1px solid #454753;
-            color: white;
+            display: block;
+            width: 100%;
+            min-width: 0;
+            padding: 16px;
+            border: 1px solid #444;
+            border-radius: 10px;
+            outline: none;
+            background: #101010;
+            color: var(--white);
+            font-size: 17px;
+            font-weight: 700;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input::placeholder {
+            color: #686868;
+            font-weight: 400;
+        }
+
+        input:focus {
+            border-color: var(--red);
+            box-shadow: 0 0 0 3px rgba(255, 48, 48, 0.13);
+        }
+
+        .hint {
+            margin: 8px 0 19px;
+            color: #777;
+            font-size: 11px;
+            text-align: left;
         }
 
         button {
-            border: none;
-            background: #b91c1c;
-            color: white;
-            font-weight: bold;
+            display: block;
+            width: 100%;
+            min-height: 54px;
+            padding: 15px 12px;
+            margin-top: 11px;
+            border: 1px solid transparent;
+            border-radius: 10px;
+            background: #292929;
+            color: var(--white);
+            font-size: 15px;
+            font-weight: 1000;
+            letter-spacing: 0.5px;
             cursor: pointer;
+            transition:
+                transform 0.15s,
+                background-color 0.15s,
+                border-color 0.15s,
+                box-shadow 0.15s;
         }
 
-        button.secondary { background: #343640; }
+        button:hover {
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(1px) scale(0.99);
+        }
+
+        button:focus-visible {
+            outline: 3px solid var(--yellow);
+            outline-offset: 3px;
+        }
+
+        .yes-button {
+            margin-top: 0;
+            background: var(--red);
+            color: #fff;
+            box-shadow: 0 5px 0 #9e1717;
+        }
+
+        .yes-button:hover {
+            background: #ff4949;
+            box-shadow: 0 7px 0 #9e1717;
+        }
+
+        .secondary {
+            border-color: #393939;
+            background: #222;
+            color: #dedede;
+        }
+
+        .secondary:hover {
+            border-color: #666;
+            background: #2c2c2c;
+        }
 
         .result {
-            margin-top: 22px;
-            padding: 18px;
-            border-radius: 14px;
-            background: #30202a;
-            font-size: 18px;
+            margin-top: 24px;
+            padding: 19px 15px;
+            border: 1px solid #704747;
+            border-radius: 12px;
+            background: #291a1a;
+            color: #fff;
+            font-size: 17px;
+            font-weight: 900;
+            line-height: 1.5;
             overflow-wrap: anywhere;
+            animation: result-pop 0.25s ease-out;
+        }
+
+        .result::before {
+            content: "⚖️ GYM COURT HAS RULED";
+            display: block;
+            margin-bottom: 10px;
+            color: var(--yellow);
+            font-size: 10px;
+            letter-spacing: 1.5px;
+        }
+
+        .disclaimer {
+            margin: 23px 0 0;
+            color: #777;
+            font-size: 10px;
+            line-height: 1.6;
+        }
+
+        .disclaimer strong {
+            color: #aaa;
+        }
+
+        @keyframes result-pop {
+            from {
+                opacity: 0;
+                transform: translateY(7px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .container {
+                padding: 28px 18px 22px;
+                border-radius: 17px;
+            }
+
+            h1 {
+                letter-spacing: -1.5px;
+            }
+
+            .emoji {
+                font-size: 48px;
+            }
         }
     </style>
 </head>
+
 <body>
     <main class="container">
-        <h1>CHEST DAY? 💪</h1>
-        <p>Did you hit chest today?</p>
-        <p>Be honest. No excuses.</p>
+        <div class="badge">⚠️ No skipping allowed</div>
+
+        <h1>
+            CHEST DAY?
+            <span>OR FRAUD? 💀</span>
+        </h1>
+
+        <div class="emoji" aria-hidden="true">🏋️‍♂️</div>
+
+        <p class="subtitle">Did you hit chest today?</p>
+
+        <p class="description">
+            Be honest, bro.<br>
+            <strong>The gym allegations are serious.</strong>
+        </p>
+
+        <div class="divider">SUBMIT YOUR DEFENCE</div>
 
         <form method="POST">
-            <input type="number" name="pr" min="0" step="any"
-                   placeholder="Bench PR in kg (e.g. 100)">
+            <label class="input-label" for="pr">
+                Bench press PR (kg)
+            </label>
 
-            <button type="submit" name="answer" value="yes">
-                YES 🔥
+            <input
+                type="number"
+                id="pr"
+                name="pr"
+                min="0"
+                step="any"
+                placeholder="e.g. 100"
+            >
+
+            <p class="hint">
+                🗿 Optional for the verdict. Mandatory for the flex.
+            </p>
+
+            <button
+                type="submit"
+                name="answer"
+                value="yes"
+                class="yes-button"
+            >
+                YES, I DESTROYED CHEST 🔥
             </button>
 
-            <button type="submit" name="answer" value="no"
-                    class="secondary" formnovalidate>
-                NO 💀
+            <button
+                type="submit"
+                name="answer"
+                value="no"
+                class="secondary"
+                formnovalidate
+            >
+                NO... I'M A DISAPPOINTMENT 💀
             </button>
 
-            <button type="submit" name="answer" value="idk"
-                    class="secondary" formnovalidate>
-                I DON'T KNOW 🤔
+            <button
+                type="submit"
+                name="answer"
+                value="idk"
+                class="secondary"
+                formnovalidate
+            >
+                I DON'T KNOW 🤡
             </button>
         </form>
 
         {% if message %}
-            <div class="result">{{ message }}</div>
+            <div class="result" role="status" aria-live="polite">
+                {{ message }}
+            </div>
         {% endif %}
+
+        <p class="disclaimer">
+            <strong>GYM COURT™</strong><br>
+            All excuses will be investigated.<br>
+            Leg day allegations are handled separately.
+        </p>
     </main>
 </body>
 </html>
