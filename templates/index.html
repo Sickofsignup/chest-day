@@ -376,6 +376,89 @@ body.cursed-mode .container::before {
     background: linear-gradient(90deg, #ff3030, #8b00ff, #ffe45c, #ff3030);
 }
 
+/* 100 KG CLUB CELEBRATION */
+.result.century-club {
+    position: relative;
+    border-color: #ffd76a;
+    background:
+        radial-gradient(ellipse at 50% 0%, #713414 0%, #291a1a 70%);
+    box-shadow:
+        0 0 18px rgba(255, 48, 48, 0.55),
+        0 0 42px rgba(255, 200, 60, 0.28);
+    animation: century-impact 0.65s ease-out both,
+               century-glow 1.8s ease-in-out 0.65s infinite alternate;
+}
+
+.result.century-club::before {
+    content: "🏆 100 KG CLUB UNLOCKED 🏆";
+    color: #ffe45c;
+    font-size: 12px;
+    animation: century-title 0.6s ease-out both;
+}
+
+.century-number {
+    display: block;
+    margin: 8px 0;
+    color: #ffe45c;
+    font-size: clamp(30px, 9vw, 46px);
+    font-weight: 1000;
+    letter-spacing: -2px;
+    text-shadow:
+        0 0 8px rgba(255, 228, 92, 0.9),
+        0 0 25px rgba(255, 48, 48, 0.8);
+}
+
+.century-particle {
+    position: fixed;
+    z-index: 9999;
+    top: -25px;
+    left: var(--start-x);
+    width: 8px;
+    height: 13px;
+    border-radius: 2px;
+    background: var(--particle-color);
+    pointer-events: none;
+    animation: century-fall var(--fall-duration) ease-in forwards;
+}
+
+@keyframes century-impact {
+    0% { transform: scale(0.88); opacity: 0; }
+    65% { transform: scale(1.035); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes century-glow {
+    from { box-shadow: 0 0 15px rgba(255, 48, 48, 0.35); }
+    to {
+        box-shadow:
+            0 0 24px rgba(255, 48, 48, 0.6),
+            0 0 45px rgba(255, 210, 80, 0.35);
+    }
+}
+
+@keyframes century-title {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes century-fall {
+    to {
+        transform: translate3d(var(--drift), 110vh, 0) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .result.century-club,
+    .result.century-club::before {
+        animation: none !important;
+    }
+
+    .century-particle {
+        display: none !important;
+    }
+}
+
     </style>
 </head>
 
