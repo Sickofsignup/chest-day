@@ -94,7 +94,8 @@ def home():
         else:
             message = get_message(answer)
 
-    return render_template("index.html", message=message)
+    bench_kg = weight if request.method == "POST" and answer == "yes" and "weight" in locals() else None
+    return render_template("index.html", message=message, bench_kg=bench_kg)
 
 
 if __name__ == "__main__":
