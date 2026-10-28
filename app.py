@@ -96,7 +96,8 @@ def home():
         else:
             message = get_message(answer)
 
-       bench_kg = weight if answer == "yes" else None
+       
+    bench_kg = weight if answer == "yes" else None
     return render_template("index.html", message=message, bench_kg=bench_kg)
 
 
