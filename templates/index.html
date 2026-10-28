@@ -679,6 +679,7 @@ body.cursed-mode .container::before {
 <script>
 (function () {
     const result = document.querySelector(".result.century-club");
+    const fire = document.getElementById("celebration-fire");
 
     if (!result) return;
 
@@ -690,23 +691,17 @@ body.cursed-mode .container::before {
         "#8b00ff"
     ];
 
-    // THE 100 KG CELEBRATION 🔥
+    if (fire) {
+        fire.classList.add("active");
+    }
+
     for (let i = 0; i < 90; i++) {
         const particle = document.createElement("span");
 
         particle.className = "century-particle";
-        particle.style.setProperty(
-            "--start-x",
-            Math.random() * 100 + "vw"
-        );
-        particle.style.setProperty(
-            "--drift",
-            (Math.random() * 200 - 100) + "px"
-        );
-        particle.style.setProperty(
-            "--fall-duration",
-            (2 + Math.random() * 3) + "s"
-        );
+        particle.style.setProperty("--start-x", Math.random() * 100 + "vw");
+        particle.style.setProperty("--drift", (Math.random() * 200 - 100) + "px");
+        particle.style.setProperty("--fall-duration", (2 + Math.random() * 3) + "s");
         particle.style.setProperty(
             "--particle-color",
             colors[Math.floor(Math.random() * colors.length)]
@@ -717,11 +712,6 @@ body.cursed-mode .container::before {
         particle.addEventListener("animationend", function () {
             particle.remove();
         }, { once: true });
-    }
-    const fire = document.getElementById("celebration-fire");
-
-    if (fire) {
-        fire.classList.add("active");
     }
 })();
 </script>
