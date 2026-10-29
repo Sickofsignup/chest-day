@@ -480,11 +480,14 @@ body.cursed-mode .container::before {
         radial-gradient(ellipse at 90% 100%, rgba(255, 170, 0, 0.8), transparent 50%);
 }
 
+
 #celebration-fire.active {
-    opacity: 1;
-    visibility: visible;
+    opacity: 1 !important;
+    visibility: visible !important;
     animation: fire-flicker 0.45s infinite alternate;
+    background-color: rgba(255, 40, 0, 0.25);
 }
+
 
 #celebration-fire::before,
 #celebration-fire::after {
@@ -682,24 +685,28 @@ body.cursed-mode .container::before {
 })();
 </script>
 
+
 <script>
-(function () {
+document.addEventListener("DOMContentLoaded", function () {
     const result = document.querySelector(".result.century-club");
     const fire = document.getElementById("celebration-fire");
 
-    if (!result) return;
-
-    const colors = [
-        "#ffe45c",
-        "#ff3030",
-        "#ffffff",
-        "#ffad33",
-        "#8b00ff"
-    ];
-
-    if (fire) {
-        fire.classList.add("active");
+    if (!result || !fire) {
+        console.log("Fire not activated:", {
+            resultFound: !!result,
+            fireFound: !!fire
+        });
+        return;
     }
+
+    // ACTIVATE THE INFERNO 🔥
+    fire.classList.add("active");
+
+    // Clear old particles
+    document.querySelectorAll(".century-particle").forEach(p => p.remove());
+
+    // Confetti celebration
+    const colors = ["#ffe45c", "#ff3030", "#ffffff", "#ffad33", "#8b00ff"];
 
     for (let i = 0; i < 90; i++) {
         const particle = document.createElement("span");
@@ -719,8 +726,11 @@ body.cursed-mode .container::before {
             particle.remove();
         }, { once: true });
     }
-})();
+
+    console.log("GYM COURT INFERNO ACTIVATED 🔥");
+});
 </script>
+
 
 <div id="celebration-fire" aria-hidden="true"></div>
 
