@@ -408,33 +408,36 @@ body.cursed-mode .container::before {
         0 0 25px rgba(255, 48, 48, 0.8);
 }
 
+
 .century-particle {
     position: fixed;
-    z-index: 9999;
-    top: -25px;
-    left: var(--start-x);
-    width: 8px;
-    height: 13px;
+    z-index: 100000;
+    top: -20px;
+    left: 0;
+    width: 9px;
+    height: 14px;
     border-radius: 2px;
     background: var(--particle-color);
     pointer-events: none;
+    will-change: transform, opacity;
     animation: century-fall var(--fall-duration) ease-in forwards;
 }
 
-@keyframes century-impact {
-    0% { transform: scale(0.88); opacity: 0; }
-    65% { transform: scale(1.035); opacity: 1; }
-    100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes century-glow {
-    from { box-shadow: 0 0 15px rgba(255, 48, 48, 0.35); }
-    to {
-        box-shadow:
-            0 0 24px rgba(255, 48, 48, 0.6),
-            0 0 45px rgba(255, 210, 80, 0.35);
+@keyframes century-fall {
+    0% {
+        transform: translate3d(var(--start-x), 0, 0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translate3d(
+            calc(var(--start-x) + var(--drift)),
+            100vh,
+            0
+        ) rotate(720deg);
+        opacity: 0;
     }
 }
+
 
 @keyframes century-title {
     from { transform: scale(0.7); opacity: 0; }
@@ -702,30 +705,59 @@ document.addEventListener("DOMContentLoaded", function () {
     // ACTIVATE THE INFERNO 🔥
     fire.classList.add("active");
 
+// Turn the fire off after 4 seconds
+setTimeout(function () {
+    fire.classList.remove("active");
+}, 4000);
+
     // Clear old particles
     document.querySelectorAll(".century-particle").forEach(p => p.remove());
 
     // Confetti celebration
-    const colors = ["#ffe45c", "#ff3030", "#ffffff", "#ffad33", "#8b00ff"];
+   
+const colors = [
+    "#ffe45c",
+    "#ff3030",
+    "#ffffff",
+    "#ffad33",
+    "#8b00ff"
+];
 
-    for (let i = 0; i < 90; i++) {
-        const particle = document.createElement("span");
+const screenWidth = document.documentElement.clientWidth;
 
-        particle.className = "century-particle";
-        particle.style.setProperty("--start-x", Math.random() * 100 + "vw");
-        particle.style.setProperty("--drift", (Math.random() * 200 - 100) + "px");
-        particle.style.setProperty("--fall-duration", (2 + Math.random() * 3) + "s");
-        particle.style.setProperty(
-            "--particle-color",
-            colors[Math.floor(Math.random() * colors.length)]
-        );
+for (let i = 0; i < 90; i++) {
+    const particle = document.createElement("span");
 
-        document.body.appendChild(particle);
+    particle.className = "century-particle";
 
-        particle.addEventListener("animationend", function () {
-            particle.remove();
-        }, { once: true });
-    }
+    particle.style.setProperty(
+        "--start-x",
+        Math.random() * screenWidth + "px"
+    );
+
+    particle.style.setProperty(
+        "--drift",
+        (Math.random() * 160 - 80) + "px"
+    );
+
+    particle.style.setProperty(
+        "--fall-duration",
+        (2 + Math.random() * 2) + "s"
+    );
+
+    particle.style.setProperty(
+        "--particle-color",
+        colors[Math.floor(Math.random() * colors.length)]
+    );
+
+    document.body.appendChild(particle);
+    console.log("CONFETTI CREATED:", i);
+
+    particle.addEventListener("animationend", function () {
+        particle.remove();
+    }, { once: true });
+}
+
 
     console.log("GYM COURT INFERNO ACTIVATED 🔥");
 });
